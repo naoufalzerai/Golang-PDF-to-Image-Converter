@@ -1,59 +1,51 @@
 package main
 
+import "C"
 import (
 	"fmt"
-	"github.com/karmdip-mi/go-fitz"
 	"image/jpeg"
+	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
-	"strings"
+
+	"github.com/gen2brain/go-fitz"
 )
 
-func main() {
+//export PdfToJpeg
+func PdfToJpeg(path *C.char) *C.char {
 
-	var files []string
-
-	root := "pdf/"
-	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-		if filepath.Ext(path) == ".pdf" {
-			files = append(files, path)
-		}
-		return nil
-	})
+	doc, err := fitz.New(C.GoString(path))
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
-	for _, file := range files {
-		doc, err := fitz.New(file)
+
+	defer doc.Close()
+
+	tmpDir, err := ioutil.TempDir(os.TempDir(), "fitz")
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	// Extract pages as images
+	for n := 0; n < doc.NumPage(); n++ {
+		img, err := doc.Image(n)
 		if err != nil {
-			panic(err)
+			return C.CString(err.Error())
 		}
-		folder := strings.TrimSuffix(path.Base(file), filepath.Ext(path.Base(file)))
 
-		// Extract pages as images
-		for n := 0; n < doc.NumPage(); n++ {
-			img, err := doc.Image(n)
-			if err != nil {
-				panic(err)
-			}
-			err = os.MkdirAll("img/"+folder, 0755)
-			if err != nil {
-				panic(err)
-			}
-
-			f, err := os.Create(filepath.Join("img/"+folder+"/", fmt.Sprintf("image-%05d.jpg", n)))
-			if err != nil {
-				panic(err)
-			}
-
-			err = jpeg.Encode(f, img, &jpeg.Options{Quality: jpeg.DefaultQuality})
-			if err != nil {
-				panic(err)
-			}
-
-			f.Close()
-
+		f, err := os.Create(filepath.Join(tmpDir, fmt.Sprintf("test%03d.jpg", n)))
+		if err != nil {
+			return C.CString(err.Error())
 		}
+
+		err = jpeg.Encode(f, img, &jpeg.Options{jpeg.DefaultQuality})
+		if err != nil {
+			return C.CString(err.Error())
+		}
+
+		f.Close()
 	}
+	return C.CString(tmpDir)
+}
+
+func main() {
 }

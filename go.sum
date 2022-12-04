@@ -1,4 +1,10 @@
 github.com/gen2brain/go-fitz v0.0.0-20210316172528-f0a07eb93909 h1:XZOsVhp0sttq8hi8QMzwZ39mf8L2g0VSnx4iw2Mfwfk=
 github.com/gen2brain/go-fitz v0.0.0-20210316172528-f0a07eb93909/go.mod h1:AEIUBmAFrng2KkeZuPIOlg9jiReLYHo0lVdwhDkz5rk=
+github.com/gen2brain/go-fitz v1.20.2 h1:4FPJCU/ImQ32oojBsYn/+oTkRORxbAhAA+Yw1Fm97MA=
+github.com/gen2brain/go-fitz v1.20.2/go.mod h1:YbQPODTC/UnQ/RK4JyD3zfpDQ19UKiV85nMMT3XpT0s=
+github.com/h2non/bimg v1.1.9 h1:WH20Nxko9l/HFm4kZCA3Phbgu2cbHvYzxwxn9YROEGg=
+github.com/h2non/bimg v1.1.9/go.mod h1:R3+UiYwkK4rQl6KVFTOFJHitgLbZXBZNFh2cv3AEbp8=
 github.com/karmdip-mi/go-fitz v0.0.0-20210316172528-f0a07eb93909 h1:1IzvGjH0VhFPcukalPq4NBHZRKN/b6+jylVSO0uFApo=
 github.com/karmdip-mi/go-fitz v0.0.0-20210316172528-f0a07eb93909/go.mod h1:2aHtXmu2gpljEpoBoFMFr+C5GpdHIT8aI1l1UcyvEP4=
+gopkg.in/gographics/imagick.v3 v3.4.2 h1:vk6oildvhRBVSBfQ4X3raJstApYSeK6CZsyzoSOZk58=
+gopkg.in/gographics/imagick.v3 v3.4.2/go.mod h1:+Q9nyA2xRZXrDyTtJ/eko+8V/5E7bWYs08ndkZp8UmA=
